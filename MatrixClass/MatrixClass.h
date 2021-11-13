@@ -1,1 +1,1 @@
-int test(int a);
+struct MatrixClass;

@@ -2,32 +2,41 @@
 #include <fstream>
 #include <algorithm>
 #include <vector>
-//#include "./MatrixClass/MatrixClass.h"
+#include "MatrixClass/MatrixClass.cpp"
+
+using namespace std;
 
 int main() {
-    std::cout << 100; 
-    return 0; 
-    /*
     int N;
-    std::vector<std::vector<int> > A;
+    int M;
+    vector<vector<int> > A;
 
-    std::fstream fin("FilesData/matrixes.txt");
+    fstream fin("FilesData/matrixes.txt");
     fin >> N;
+    fin >> M;
 
-    A.resize(N);
+    A.resize(N, vector<int > (M, 0));
     int ptr;
 
-    for (int i = 0; i < N; i++) {
-        A[i].resize(N);
-        for (int j = 0; j < N; j++) {
+    for (int i = 0; i < N; i++) 
+    {
+        for (int j = 0; j < N; j++) 
+        {
             fin >> ptr;
             A[i][j] = ptr;
-            std::cout << A[i][j];
         }
-        std::cout << "\n";
     }
-    int result = test(5);
-    std::cout << result;
-    */
+
+    MatrixClass Matrix1(A);
+    MatrixClass Matrix2(A);
+    MatrixClass Matrix3 = Matrix1 * Matrix2;
+    Matrix1.show();
+    cout << "----------- \n";
+    Matrix1.pow(2);
+    Matrix3.show();
+    cout << "----------- \n";
+    Matrix1.show();
+
+
     return 0;
 }
