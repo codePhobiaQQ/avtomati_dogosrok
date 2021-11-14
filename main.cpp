@@ -71,11 +71,13 @@ int main() {
 
     fin.close();
 
-    MatrixClass MatrixA(A, 3);
-    MatrixClass MatrixB(B, 3);
-    MatrixClass MatrixC(C, 3);
-    MatrixClass MatrixD(D, 3);
+    MatrixClass MatrixA(A);
+    MatrixClass MatrixB(B);
+    MatrixClass MatrixC(C);
+    MatrixClass MatrixD(D);
 
+    MatrixClass MatrixK3(C);
+    MatrixK3.K(C, A, 6).show();
 
     return 0;
 }

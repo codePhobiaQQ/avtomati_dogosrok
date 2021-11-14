@@ -8,7 +8,7 @@ struct MatrixClass {
     vector<vector<int> > matrix;
     int module;
 
-    MatrixClass(vector<vector<int> > inputMatrix, int inputModule = 3) {
+    MatrixClass(vector<vector<int> > inputMatrix, int inputModule = 2) {
         matrix = inputMatrix;
         module = inputModule;
     }
@@ -31,12 +31,12 @@ struct MatrixClass {
     }
 
     MatrixClass& operator+=(MatrixClass A) {
-        MatrixClass result = A;
-        for (int i = 0; i < matrix.size(); i++) 
+        MatrixClass result = matrix;
+        for (int i = 0; i < A.matrix.size(); i++) 
         {
-            for (int j = 0; j < matrix[0].size(); j++) 
+            for (int j = 0; j < A.matrix[0].size(); j++) 
             {
-                result[i][j] = (result[i][j] + matrix[i][j]) % module;
+                result[i].push_back(A[i][j]);
             }
         }
         *this = result;
@@ -44,14 +44,14 @@ struct MatrixClass {
     }
 
     MatrixClass operator*(MatrixClass A) {
-        vector<vector<int> > result(matrix[0].size(), vector<int> (matrix[0].size(), 0));
-        for (int i = 0; i < matrix[0].size(); i++)
+        vector<vector<int> > result(matrix.size(), vector<int> (A[0].size(), 0));
+        for (int i = 0; i < matrix.size(); i++)
         {
-            for (int j = 0; j < matrix[0].size(); j++)
+            for (int j = 0; j < A[0].size(); j++)
             {
                 for (int k = 0; k < matrix[0].size(); k++)
                 {
-                    result[i][j] += (result[i][j] + matrix[i][k] * A[k][j]) % module;
+                    result[i][j] = (result[i][j] + (matrix[i][k] * A[k][j])) % module;
                 }
             }
         }
@@ -61,9 +61,9 @@ struct MatrixClass {
 
     MatrixClass& operator*=(MatrixClass A) {
         vector<vector<int> > result(matrix[0].size(), vector<int> (matrix[0].size(), 0));
-        for (int i = 0; i < matrix[0].size(); i++)
+        for (int i = 0; i < matrix.size(); i++)
         {
-            for (int j = 0; j < matrix[0].size(); j++)
+            for (int j = 0; j < A[0].size(); j++)
             {
                 for (int k = 0; k < matrix[0].size(); k++)
                 {
@@ -95,12 +95,13 @@ struct MatrixClass {
         return result;
     }
 
-    MatrixClass K(int number) {
-        for (int i = 0; i < number; i++)
+    MatrixClass K(MatrixClass C, MatrixClass A, int number) {
+        MatrixClass result(C.matrix);
+        for (int i = 1; i < number; i++)
         {
-            
+            result += (A.pow(i) * C);
         }
-        
+        return result;
     }
 
     void show() {
