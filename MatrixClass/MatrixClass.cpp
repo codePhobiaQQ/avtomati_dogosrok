@@ -6,13 +6,13 @@ using namespace std;
 
 struct MatrixClass {
     vector<vector<int> > matrix;
-    MatrixClass(vector<vector<int> > inputMatrix) {
+    int module;
+
+    MatrixClass(vector<vector<int> > inputMatrix, int inputModule = 3) {
         matrix = inputMatrix;
+        module = inputModule;
     }
 
-    vector<vector<int> > multiply(vector<vector<int> > &matrix) {
-        return matrix;
-    }
     vector<int>& operator[](int id) {
         return matrix[id];
     } 
@@ -23,8 +23,8 @@ struct MatrixClass {
         {
             for (int j = 0; j < matrix[0].size(); j++) 
             {
-                //cout << i << " " << j << endl;
-                result[i][j] += matrix[i][j];
+                
+                result[i][j] = (result[i][j] + matrix[i][j]) % module;
             }
         }
         return result;
@@ -36,8 +36,7 @@ struct MatrixClass {
         {
             for (int j = 0; j < matrix[0].size(); j++) 
             {
-                //cout << i << " " << j << endl;
-                result[i][j] += matrix[i][j];
+                result[i][j] = (result[i][j] + matrix[i][j]) % module;
             }
         }
         *this = result;
@@ -52,7 +51,7 @@ struct MatrixClass {
             {
                 for (int k = 0; k < matrix[0].size(); k++)
                 {
-                    result[i][j] += matrix[i][k] * A[k][j];
+                    result[i][j] += (result[i][j] + matrix[i][k] * A[k][j]) % module;
                 }
             }
         }
@@ -68,12 +67,22 @@ struct MatrixClass {
             {
                 for (int k = 0; k < matrix[0].size(); k++)
                 {
-                    result[i][j] += matrix[i][k] * A[k][j];
+                    result[i][j] = (result[i][j] + matrix[i][k] * A[k][j]) % module;
                 }
             }
         }
         matrix = result;
         return *this;
+    }
+
+    MatrixClass transparate() {
+        MatrixClass result(vector<vector<int> > (matrix.size(), vector<int> (matrix[0].size(), 0)));
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix[0].size(); j++) {
+                result[i][j] = matrix[j][i];
+            }
+        }
+        return result;
     }
 
     MatrixClass pow(int k) {
@@ -84,6 +93,14 @@ struct MatrixClass {
             result *= ptr;
         }
         return result;
+    }
+
+    MatrixClass K(int number) {
+        for (int i = 0; i < number; i++)
+        {
+            
+        }
+        
     }
 
     void show() {

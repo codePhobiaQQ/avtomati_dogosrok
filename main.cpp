@@ -10,32 +10,71 @@ int main() {
     int N;
     int M;
     vector<vector<int> > A;
+    vector<vector<int> > B;
+    vector<vector<int> > C;
+    vector<vector<int> > D;
 
     fstream fin("FilesData/matrixes.txt");
-    fin >> N;
-    fin >> M;
-
-    A.resize(N, vector<int > (M, 0));
     int ptr;
 
+    // Матрица A
+    fin >> N;
+    fin >> M;
+    A.resize(N, vector<int > (M, 0));
     for (int i = 0; i < N; i++) 
     {
-        for (int j = 0; j < N; j++) 
+        for (int j = 0; j < M; j++) 
         {
             fin >> ptr;
             A[i][j] = ptr;
         }
     }
 
-    MatrixClass Matrix1(A);
-    MatrixClass Matrix2(A);
-    MatrixClass Matrix3 = Matrix1 * Matrix2;
-    Matrix1.show();
-    cout << "----------- \n";
-    Matrix1.pow(2);
-    Matrix3.show();
-    cout << "----------- \n";
-    Matrix1.show();
+    // Матрица B
+    fin >> N;
+    fin >> M;
+    B.resize(N, vector<int > (M, 0));
+    for (int i = 0; i < N; i++) 
+    {
+        for (int j = 0; j < M; j++) 
+        {
+            fin >> ptr;
+            B[i][j] = ptr;
+        }
+    }
+
+    // Матрица С
+    fin >> N;
+    fin >> M;
+    C.resize(N, vector<int > (M, 0));
+    for (int i = 0; i < N; i++) 
+    {
+        for (int j = 0; j < M; j++) 
+        {
+            fin >> ptr;
+            C[i][j] = ptr;
+        }
+    }
+
+    // Матрица D
+    fin >> N;
+    fin >> M;
+    D.resize(N, vector<int > (M, 0));
+    for (int i = 0; i < N; i++) 
+    {
+        for (int j = 0; j < M; j++) 
+        {
+            fin >> ptr;
+            D[i][j] = ptr;
+        }
+    }
+
+    fin.close();
+
+    MatrixClass MatrixA(A, 3);
+    MatrixClass MatrixB(B, 3);
+    MatrixClass MatrixC(C, 3);
+    MatrixClass MatrixD(D, 3);
 
 
     return 0;

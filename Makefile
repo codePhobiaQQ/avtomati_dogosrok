@@ -1,5 +1,5 @@
 run: compile  
-	./a.out
+	./a.out > ./FilesData/result.txt
 
 compile:
 	g++ main.cpp ./MatrixClass/MatrixClass.cpp
